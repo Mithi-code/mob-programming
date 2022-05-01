@@ -14,6 +14,6 @@ function howManyGames(p, d, m, s) {
     }
     
   }
-  
+
   return gameCount;
 }
