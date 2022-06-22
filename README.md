@@ -1,6 +1,6 @@
-# mob-programming
+# DSA
 
-> This repo is used for solving hacker-rank questions.
+> This repo is used for solving hacker-rank questions and prepare note for data structure topics.
 
 ### Interview prep
 
