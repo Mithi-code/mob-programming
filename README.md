@@ -5,6 +5,8 @@
 ### Interview 
 > solving questions using javaScript 
 
+All required topics will be here 
+
 
 👤 **Mithlesh Kumar**
 - GitHub: [@githubhandle](https://github.com/Mithi-code)
