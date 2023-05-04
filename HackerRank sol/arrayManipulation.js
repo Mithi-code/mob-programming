@@ -1,5 +1,5 @@
 function arrayManipulation(n, queries) {
-  // Alternative Arrya creation
+  // Alternative Array creation
   // const arr = '0'.repeat(n).split('').map((e) => parseInt(e));
   let zeroArr = '0'.repeat(n).split('').map((e) => parseInt(e));
   for (let j = 0; j < queries.length; j++) {
