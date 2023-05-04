@@ -1,18 +1,16 @@
 function howManyGames(p, d, m, s) {
-
   let totalCost = p;
   let gameCount = 0;
-  
-  while(totalCost <= s){
+
+  while (totalCost <= s) {
     p = p - d;
-    if(p <= m){
+    if (p <= m) {
       totalCost = totalCost + m;
       gameCount++;
-    }else{
+    } else {
       totalCost = totalCost + p;
       gameCount++;
     }
-    
   }
 
   return gameCount;
