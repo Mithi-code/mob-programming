@@ -1,3 +1,4 @@
+// minimum swap hacker-rank solutions
 function minimumSwaps(arr) {
   let swapCount = 0;
   for (let index = 0; index < arr.length; index++) {

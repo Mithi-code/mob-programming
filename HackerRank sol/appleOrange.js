@@ -1,3 +1,5 @@
+// counting the number of apples and orange hacker rank solutions
+
 function countApplesAndOranges(s, t, a, b, apples, oranges) {
   let appleCount = 0;
   let orangeCount = 0;
