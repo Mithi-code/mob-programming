@@ -11,7 +11,6 @@ function rotLeft(a, d) {
        rotateLeftIdx++;
    }
 
-   //set rotateLeftIdx back to 0
    rotateLeftIdx = 0;
    while(rotateLeftIdx < d){
        newArr[i] = a[rotateLeftIdx];
