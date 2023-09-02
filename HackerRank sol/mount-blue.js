@@ -103,3 +103,169 @@ function gradingStudents(grades) {
   })
 }
 
+// diagonal diff
+
+function diagonalDifference(arr) {
+    // Write your code here
+  let diagonal1 = 0, diagonal2 = 0
+  for(let i = 0; i<arr.length; i++){
+      diagonal1 += arr[i][i]
+      diagonal2 += arr[arr.length -1-i][i]
+  }
+    return Math.abs(diagonal2 - diagonal1)
+}
+
+// plus-minus
+function plusMinus(arr) {
+    // Write your code here
+    let positives = 0, negatives = 0, zeros = 0;
+     const len = arr.length || 0;
+      
+     if (len > 0 && len <= 100) {
+          arr.map((elem, key) => {
+               if (elem > 0) {
+                    positives++;
+               } else if (elem < 0) {
+                    negatives++; 
+               } else {
+                    zeros++;
+               }
+                  
+               return elem; 
+          }); 
+     } 
+     
+     console.log((positives / len) || 0);
+     console.log((negatives / len) || 0);
+     console.log((zeros / len) || 0);     
+
+}
+
+// countinxg vallyes
+
+function countingValleys(steps, path) {
+  let valleys=0
+  let altitude=0
+  for(let i=0;i<steps;i++){
+    // if path is 'D' we decrement the altitide
+    if(path[i]=='D'){
+      altitude--
+    }else{
+      // this means a down and up movement suggesting a valley passed
+      if(altitude == -1){
+        valleys++
+      }
+      // else we increment the altititude
+      altitude++
+    }
+  }
+  return valleys
+}
+
+// time conversion 
+function timeConversion(s) {
+    // Write your code here
+  let timeFormat = s.substring(8)
+  let fullTime = s.substring(0,8)
+  let times = fullTime.split(':')
+if(timeFormat == 'PM'){
+  if(times[0] !== '12'){
+     times[0] = parseInt(times[0]) + 12
+  }
+}else {
+   if(times[0] === '12'){
+      times[0] = '00'
+   }
+}
+
+return times.join(':')
+
+}
+
+//jumpinxg on clouds revisited
+
+function jumpingOnClouds(c, k) {
+let energyLevel = 100;
+   for( let i = k ; i != 0 ; i+=k ){
+      if( i >= c.length ) i = i - c.length;
+      energyLevel = energyLevel - 1;
+      if( c[i] == 1 ) energyLevel = energyLevel - 2;
+      if( i == 0 ) break;
+   }
+   return energyLevel;
+
+}
+
+// anxgry prof
+function angryProfessor(k, a) {
+    // Write your code here
+  let count = 0;
+  for (let i = 0; i < a.length; i++) {
+      if (a[i] <= 0) {
+          count += 1
+      }
+  }
+
+  return count >= k ? "NO" : "YES";
+}
+
+// halloween sale
+function howManyGames(p, d, m, s) {
+  let totalCost = p;
+  let gameCount = 0;
+
+  while (totalCost <= s) {
+    p = p - d;
+    if (p <= m) {
+      totalCost = totalCost + m;
+      gameCount++;
+    } else {
+      totalCost = totalCost + p;
+      gameCount++;
+    }
+  }
+
+  return gameCount;
+}
+
+// repeat string
+function repeatedString(s, n) {
+    // Write your code here
+   let occurances = (s.split("a").length - 1);
+   let max = Math.floor(n / s.length);
+   let totalAs= occurances * max;
+   totalAs += (s.slice(0, n % s.length).split("a").length - 1);
+   return totalAs;
+}
+repeatedString('gysvh', 2)
+
+// jumpinxg on clouds
+
+function jumpingOnClouds(c) {
+  // Write your code here
+   var stepsArray = [];
+ 
+  let i=0;
+  while(i < c.length - 1){
+     
+      if ((i+2<c.length) && (c[i+2] === 0)) {
+          stepsArray.push(c[i + 2]);
+          i+=2;
+      } else{
+          stepsArray.push(c[i + 1]);
+          i+=1;
+      } 
+      
+  }
+  return stepsArray.length
+
+}
+
+//recursive dixgit sum
+
+function superDigit(n, k) {
+if (n.length === 1) return n
+const digit = (n.split('').reduce((res, d) => res + Number(d), 0) * k) + ''
+return superDigit(digit, 1)
+}
+
