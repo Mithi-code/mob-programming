@@ -366,4 +366,101 @@ function getTotalX(a, b) {
   return count;
 }
 
+// find median
+function findMedian(arr) {
+  // Sort the array in ascending order
+  arr.sort((a, b) => a - b);
+  
+  const length = arr.length;
+  
+  // Check if the array has an odd or even number of elements
+  if (length % 2 === 1) {
+    // If the number of elements is odd, return the middle element
+    return arr[Math.floor(length / 2)];
+  } else {
+    // If the number of elements is even, return the average of the two middle elements
+    const middle1 = arr[length / 2 - 1];
+    const middle2 = arr[length / 2];
+    return (middle1 + middle2) / 2;
+  }
+}
+
+//Divisible sum pairs
+function divisibleSumPairs(n, k, ar) {
+  let count = 0;
+
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      if ((ar[i] + ar[j]) % k === 0) {
+        count++;
+      }
+    }
+  }
+
+  return count;
+}
+
+// subarray division
+function birthday(s, d, m) {
+  let count = 0;
+
+  // Iterate through the array from 0 to (length - m)
+  for (let i = 0; i <= s.length - m; i++) {
+    let sum = 0;
+
+    // Calculate the sum of the current subarray of length m
+    for (let j = i; j < i + m; j++) {
+      sum += s[j];
+    }
+
+    // If the sum matches the target day, increment the count
+    if (sum === d) {
+      count++;
+    }
+  }
+
+  return count;
+}
+// hurdle race
+function hurdleRace(k, height) {
+  // Find the maximum height among the hurdles
+  const maxHurdleHeight = Math.max(...height);
+
+  // Calculate the doses needed (if any)
+  const dosesNeeded = maxHurdleHeight - k;
+
+  // Return the number of doses needed, or 0 if no doses are needed
+  return dosesNeeded > 0 ? dosesNeeded : 0;
+}
+
+//Mars exploration
+
+function marsExploration(s) {
+  const expectedSignal = "SOS";
+  let corruptedCount = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] !== expectedSignal[i % 3]) {
+      corruptedCount++;
+    }
+  }
+
+  return corruptedCount;
+}
+
+// cat and mouse
+function catAndMouse(x, y, z) {
+  const catA = Math.abs(x - z); // Distance of Cat A from the mouse
+  const catB = Math.abs(y - z); // Distance of Cat B from the mouse
+
+  if (catA < catB) {
+    return "Cat A"; // Cat A reaches the mouse first
+  } else if (catB < catA) {
+    return "Cat B"; // Cat B reaches the mouse first
+  } else {
+    return "Mouse C"; // Both cats reach the mouse at the same time
+  }
+}
+
+
 
