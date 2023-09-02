@@ -269,3 +269,101 @@ const digit = (n.split('').reduce((res, d) => res + Number(d), 0) * k) + ''
 return superDigit(digit, 1)
 }
 
+// max-min
+function maxMin(k, arr) {
+  // Sort the array numerically
+  arr = arr.sort((a, b) => a - b);
+  
+  let i, length = arr.length, min = Number.MAX_VALUE;
+  
+  for(i = 0; i < length - k + 1; i++) {
+    let diff = arr[i + k - 1] - arr[i];
+    if(diff < min)
+      min = diff;
+  }
+ 
+  return min; 
+}
+// super reduced strinxg
+function superReducedString(s) {
+  const stack = [];
+  
+  for (let char of s) {
+    // If the stack is not empty and the current character matches the character at the top of the stack, pop it.
+    if (stack.length > 0 && stack[stack.length - 1] === char) {
+      stack.pop();
+    } else {
+      // Otherwise, push the current character onto the stack.
+      stack.push(char);
+    }
+  }
+  
+  // If the stack is empty, return "Empty String"; otherwise, join the characters in the stack to form the reduced string.
+  return stack.length === 0 ? "Empty String" : stack.join("");
+}
+
+// Example usage:
+const inputString = "abba";
+const result = superReducedString(inputString);
+console.log(result); // Output: "Empty String"
+// Bill Division
+function bonAppetit(bill, k, b) {
+  // Calculate the total cost of the items excluding the item that Anna didn't eat
+  let totalCost = 0;
+  for (let i = 0; i < bill.length; i++) {
+    if (i !== k) {
+      totalCost += bill[i];
+    }
+  }
+
+  // Calculate the actual share of each person
+  const annaShare = totalCost / 2;
+
+  // Check if Anna was overcharged or not
+  if (annaShare === b) {
+    console.log("Bon Appetit");
+  } else {
+    console.log(b - annaShare);
+  }
+}
+
+//Between two sets 
+function gcd(a, b) {
+  // Calculate the greatest common divisor (GCD) using Euclidean algorithm
+  while (b !== 0) {
+    const temp = b;
+    b = a % b;
+    a = temp;
+  }
+  return a;
+}
+
+function lcm(a, b) {
+  // Calculate the least common multiple (LCM) using GCD
+  return (a * b) / gcd(a, b);
+}
+function getTotalX(a, b) {
+    // Write your code here
+ let lcmValue = a[0];
+  for (let i = 1; i < a.length; i++) {
+    lcmValue = lcm(lcmValue, a[i]);
+  }
+
+  // Calculate the GCD of the second array
+  let gcdValue = b[0];
+  for (let i = 1; i < b.length; i++) {
+    gcdValue = gcd(gcdValue, b[i]);
+  }
+
+  // Count the multiples of lcmValue that evenly divide gcdValue
+  let count = 0;
+  for (let i = lcmValue; i <= gcdValue; i += lcmValue) {
+    if (gcdValue % i === 0) {
+      count++;
+    }
+  }
+
+  return count;
+}
+
+
