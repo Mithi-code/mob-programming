@@ -854,3 +854,18 @@ function squares(a, b) {
   return count;
 }
 
+// circular array rotation
+function circularArrayRotation(a, k, queries) {
+  const n = a.length;
+  k %= n; // Reduce the number of rotations to avoid unnecessary iterations
+
+  // Rotate the array to the right
+  const rotatedArray = [...a.slice(n - k), ...a.slice(0, n - k)];
+
+  // Answer queries about specific positions in the rotated array
+  const results = queries.map((query) => rotatedArray[query]);
+
+  return results;
+}
+
+//
