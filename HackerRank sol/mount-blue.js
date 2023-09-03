@@ -582,4 +582,82 @@ function findLonelyInteger(arr) {
   return lonelyInteger;
 }
 
-//
+//Alternative characters
+function alternatingCharacters(s) {
+  let deletions = 0;
+
+  // Iterate through the string from the second character
+  for (let i = 1; i < s.length; i++) {
+    // If the current character is the same as the previous one, increment the deletions count
+    if (s[i] === s[i - 1]) {
+      deletions++;
+    }
+  }
+
+  return deletions;
+}
+
+//migratory bird
+
+function migratoryBirds(arr) {
+    // Create a map to store the count of each bird type
+    const birdCount = new Map();
+
+    // Initialize variables to keep track of the most common bird type and its count
+    let mostCommonBird = 0;
+    let maxCount = 0;
+
+    // Iterate through the array of bird sightings
+    for (const bird of arr) {
+        // Increment the count for the current bird type
+        birdCount.set(bird, (birdCount.get(bird) || 0) + 1);
+
+        // Check if the count for the current bird type is greater than the current maxCount
+        if (birdCount.get(bird) > maxCount) {
+            maxCount = birdCount.get(bird);
+            mostCommonBird = bird;
+        } else if (birdCount.get(bird) === maxCount && bird < mostCommonBird) {
+            // If two bird types have the same max count, choose the one with the lower type (numerically)
+            mostCommonBird = bird;
+        }
+    }
+
+    return mostCommonBird;
+}
+
+// caesar cipher
+
+function caesarCipher(s, k) {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  const upperAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  // Initialize an empty string to store the result
+  let result = '';
+
+  // Iterate through each character in the input string
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+
+    // Check if the character is a lowercase letter
+    if (alphabet.includes(char)) {
+      const index = alphabet.indexOf(char);
+      const newIndex = (index + k) % 26; // Calculate the new index after shifting
+      result += alphabet[newIndex];
+    }
+    // Check if the character is an uppercase letter
+    else if (upperAlphabet.includes(char)) {
+      const index = upperAlphabet.indexOf(char);
+      const newIndex = (index + k) % 26; // Calculate the new index after shifting
+      result += upperAlphabet[newIndex];
+    }
+    // If the character is not a letter, leave it unchanged
+    else {
+      result += char;
+    }
+  }
+
+  return result;
+}
+
+// Library Fine
+
