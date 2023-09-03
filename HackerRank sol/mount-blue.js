@@ -661,3 +661,113 @@ function caesarCipher(s, k) {
 
 // Library Fine
 
+function libraryFine(d1, m1, y1, d2, m2, y2) {
+  if (y1 < y2 || (y1 === y2 && m1 < m2) || (y1 === y2 && m1 === m2 && d1 <= d2)) {
+    return 0; // The book was returned on time or before the expected return date
+  } else if (y1 === y2 && m1 === m2) {
+    return 15 * (d1 - d2); // Calculate the daily fine
+  } else if (y1 === y2 && m1 > m2) {
+    return 500 * (m1 - m2); // Calculate the monthly fine
+  } else {
+    return 10000; // The book was returned more than a year late
+  }
+}
+
+//Day of the Programmer
+
+function dayOfProgrammer(year) {
+  let day = 0;
+  let month = 0;
+
+  if (year === 1918) {
+    // Special case for the transition year 1918
+    day = 26;
+    month = 9; // September
+  } else if (
+    (year <= 1917 && year % 4 === 0) || // Julian leap year
+    (year >= 1919 && (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0))) // Gregorian leap year
+  ) {
+    day = 12;
+    month = 9; // September
+  } else {
+    day = 13;
+    month = 9; // September
+  }
+
+  // Format the date in "dd.mm.yyyy" format
+  const formattedDate = `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year}`;
+
+  return formattedDate;
+}
+
+// Strong Password
+
+function minimumNumber(n, password) {
+  const lowercaseRegex = /[a-z]/;
+  const uppercaseRegex = /[A-Z]/;
+  const digitRegex = /[0-9]/;
+  const specialRegex = /[!@#$%^&*()\-+]/;
+
+  let missingCriteria = 0;
+
+  if (!lowercaseRegex.test(password)) {
+    missingCriteria++;
+  }
+
+  if (!uppercaseRegex.test(password)) {
+    missingCriteria++;
+  }
+
+  if (!digitRegex.test(password)) {
+    missingCriteria++;
+  }
+
+  if (!specialRegex.test(password)) {
+    missingCriteria++;
+  }
+
+  // Determine how many characters to add based on the missing criteria and password length
+  const lengthToAdd = Math.max(6 - n, 0);
+
+  return Math.max(missingCriteria, lengthToAdd);
+}
+
+//Minimum Absolute Difference in an Array
+
+function minimumAbsoluteDifference(arr) {
+  // Sort the array in ascending order
+  arr.sort((a, b) => a - b);
+
+  let minDiff = Infinity;
+
+  // Calculate the absolute difference between adjacent elements
+  for (let i = 1; i < arr.length; i++) {
+    const diff = Math.abs(arr[i] - arr[i - 1]);
+    if (diff < minDiff) {
+      minDiff = diff;
+    }
+  }
+
+  return minDiff;
+}
+
+// Electronics Shop
+function getMoneySpent(keyboards, drives, b) {
+    let maxMoneySpent = -1; // Initialize to -1 to represent that no combination is possible
+
+    // Iterate through keyboards
+    for (const keyboard of keyboards) {
+        // Iterate through drives
+        for (const drive of drives) {
+            const totalCost = keyboard + drive;
+            
+            // Check if the total cost is within budget and greater than the current maxMoneySpent
+            if (totalCost <= b && totalCost > maxMoneySpent) {
+                maxMoneySpent = totalCost;
+            }
+        }
+    }
+
+    return maxMoneySpent;
+}
+
