@@ -771,3 +771,86 @@ function getMoneySpent(keyboards, drives, b) {
     return maxMoneySpent;
 }
 
+// viral Adver
+
+function viralAdvertising(n) {
+  let shared = 5; // Initial number of people who share the ad
+  let cumulativeLikes = 0; // Total number of likes
+
+  for (let i = 1; i <= n; i++) {
+    const liked = Math.floor(shared / 2); // Number of people who like the ad
+    cumulativeLikes += liked; // Add the likes to the cumulative total
+    shared = liked * 3; // Calculate the number of people who share the ad the next day
+  }
+
+  return cumulativeLikes;
+}
+
+//games of stone 
+function gameOfStones(n) {
+    // If n is a multiple of 7 or 1, the second player wins; otherwise, the first player wins.
+    if (n % 7 === 0 || n % 7 === 1) {
+        return "Second";
+    } else {
+        return "First";
+    }
+}
+// save the prisoner
+
+function saveThePrisoner(n, m, s) {
+  // Calculate the index of the last prisoner who receives a sweet
+  const lastPrisoner = (s + m - 1) % n;
+
+  // Handle the case when the last prisoner is 0 (the last chair)
+  return lastPrisoner === 0 ? n : lastPrisoner;
+}
+
+//Beautiful Days at the Movies
+function beautifulDays(i, j, k) {
+  let beautifulDayCount = 0;
+
+  for (let day = i; day <= j; day++) {
+    const reverseDay = parseInt(day.toString().split('').reverse().join(''), 10);
+    const absoluteDifference = Math.abs(day - reverseDay);
+
+    if (absoluteDifference % k === 0) {
+      beautifulDayCount++;
+    }
+  }
+
+  return beautifulDayCount;
+}
+
+// grid challenge
+
+function gridChallenge(grid) {
+  // Sort each row of the grid in non-decreasing order
+  for (let i = 0; i < grid.length; i++) {
+    grid[i] = grid[i].split('').sort().join('');
+  }
+
+  // Check if each column is in non-decreasing order
+  for (let j = 0; j < grid[0].length; j++) {
+    for (let i = 1; i < grid.length; i++) {
+      if (grid[i][j] < grid[i - 1][j]) {
+        return "NO"; // Column is not in non-decreasing order
+      }
+    }
+  }
+
+  return "YES"; // All columns are in non-decreasing order
+}
+
+// Sherlock and Squares
+
+function squares(a, b) {
+  // Calculate the square roots of the range endpoints
+  const sqrtA = Math.ceil(Math.sqrt(a));
+  const sqrtB = Math.floor(Math.sqrt(b));
+
+  // Count the perfect squares within the range
+  const count = sqrtB - sqrtA + 1;
+
+  return count;
+}
+
