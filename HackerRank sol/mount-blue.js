@@ -462,5 +462,124 @@ function catAndMouse(x, y, z) {
   }
 }
 
+// Tower Breaker
+function towerBreakers(n, m) {
+    // Write your code here
+      if (m === 1 || n % 2 === 0) {
+    return 2; // Second player wins
+  } else {
+    return 1; // First player wins
+  }
+}
 
+// CamleCase
+function camelcase(s) {
+  let wordCount = 1; // Initialize the count to 1 for the first word
 
+  // Iterate through each character in the string
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+
+    // Check if the current character is an uppercase letter (indicating the start of a new word)
+    if (char === char.toUpperCase()) {
+      wordCount++;
+    }
+  }
+
+  return wordCount;
+}
+
+//Sequence Equation
+function permutationEquation(p) {
+  const result = [];
+
+  // Iterate through each element of the sequence
+  for (let x = 1; x <= p.length; x++) {
+    // Find the index of x in the sequence (p.indexOf(x) + 1) and
+    // then find the index of the result of the previous step in the sequence
+    result.push(p.indexOf(p.indexOf(x) + 1) + 1);
+  }
+
+  return result;
+}
+
+//Love letter Mystery
+
+function theLoveLetterMystery(s) {
+  let operations = 0;
+  const length = s.length;
+
+  for (let i = 0; i < Math.floor(length / 2); i++) {
+    const leftChar = s[i];
+    const rightChar = s[length - 1 - i];
+    const diff = Math.abs(leftChar.charCodeAt(0) - rightChar.charCodeAt(0));
+    operations += diff;
+  }
+
+  return operations;
+}
+
+// Making Anagrams
+function makingAnagrams(s1, s2) {
+    // Create character frequency maps for both strings
+    const charCount1 = new Map();
+    const charCount2 = new Map();
+
+    // Populate the frequency maps for s1
+    for (const char of s1) {
+        charCount1.set(char, (charCount1.get(char) || 0) + 1);
+    }
+
+    // Populate the frequency maps for s2
+    for (const char of s2) {
+        charCount2.set(char, (charCount2.get(char) || 0) + 1);
+    }
+
+    // Calculate the number of deletions needed
+    let deletions = 0;
+
+    // Iterate through the first frequency map
+    for (const [char, count] of charCount1) {
+        if (!charCount2.has(char)) {
+            // If a character is not in s2, delete it from s1
+            deletions += count;
+        } else {
+            // If a character is in both strings, calculate the difference in counts
+            deletions += Math.abs(count - charCount2.get(char));
+        }
+    }
+
+    // Iterate through the second frequency map to find characters unique to s2
+    for (const [char, count] of charCount2) {
+        if (!charCount1.has(char)) {
+            // If a character is not in s1, delete it from s2
+            deletions += count;
+        }
+    }
+
+    return deletions;
+}
+
+// Intro tutorial 
+function introTutorial(V, arr) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === V) {
+      return i;
+    }
+  }
+  return -1; // Return -1 if V is not found in the array
+}
+
+// lonely integer
+function findLonelyInteger(arr) {
+  let lonelyInteger = 0;
+
+  // XOR all elements in the array
+  for (let i = 0; i < a.length; i++) {
+    lonelyInteger ^= a[i];
+  }
+
+  return lonelyInteger;
+}
+
+//
