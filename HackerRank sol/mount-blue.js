@@ -752,6 +752,8 @@ function minimumAbsoluteDifference(arr) {
 }
 
 // Electronics Shop
+
+
 function getMoneySpent(keyboards, drives, b) {
     let maxMoneySpent = -1; // Initialize to -1 to represent that no combination is possible
 
@@ -786,7 +788,9 @@ function viralAdvertising(n) {
   return cumulativeLikes;
 }
 
-//games of stone 
+//games of stone
+
+
 function gameOfStones(n) {
     // If n is a multiple of 7 or 1, the second player wins; otherwise, the first player wins.
     if (n % 7 === 0 || n % 7 === 1) {
@@ -806,6 +810,8 @@ function saveThePrisoner(n, m, s) {
 }
 
 //Beautiful Days at the Movies
+
+
 function beautifulDays(i, j, k) {
   let beautifulDayCount = 0;
 
@@ -855,6 +861,8 @@ function squares(a, b) {
 }
 
 // circular array rotation
+
+
 function circularArrayRotation(a, k, queries) {
   const n = a.length;
   k %= n; // Reduce the number of rotations to avoid unnecessary iterations
@@ -868,4 +876,93 @@ function circularArrayRotation(a, k, queries) {
   return results;
 }
 
-//
+//Big sorting
+
+
+function bigSorting(unsorted) {
+  unsorted.sort((a, b) => {
+    if (a.length !== b.length) {
+      return a.length - b.length; // Compare by length first
+    }
+    return a.localeCompare(b); // Compare lexicographically as strings
+  });
+
+  return unsorted;
+}
+
+//Equalize the array
+
+function equalizeArray(arr) {
+  // Count the frequency of each element
+  const frequency = {};
+  for (const num of arr) {
+    if (frequency[num]) {
+      frequency[num]++;
+    } else {
+      frequency[num] = 1;
+    }
+  }
+
+  // Find the maximum frequency
+  let maxFrequency = 0;
+  for (const num in frequency) {
+    if (frequency[num] > maxFrequency) {
+      maxFrequency = frequency[num];
+    }
+  }
+
+  // Calculate the minimum deletions needed
+  const deletions = arr.length - maxFrequency;
+
+  return deletions;
+}
+
+
+// Separate the Numbers
+
+
+       
+//Minimum Distances
+
+
+function minimumDistances(a) {
+  const indices = {};
+
+  let minDistance = Infinity;
+
+  for (let i = 0; i < a.length; i++) {
+    const num = a[i];
+    if (indices[num] !== undefined) {
+      const distance = i - indices[num];
+      if (distance < minDistance) {
+        minDistance = distance;
+      }
+    }
+    indices[num] = i;
+  }
+
+  return minDistance === Infinity ? -1 : minDistance;
+}
+
+
+// Maximum Perimeter Triangle
+
+function maximumPerimeterTriangle(sticks) {
+  // Sort the stick lengths in descending order
+  sticks.sort((a, b) => b - a);
+
+  for (let i = 0; i < sticks.length - 2; i++) {
+    const a = sticks[i];
+    const b = sticks[i + 1];
+    const c = sticks[i + 2];
+
+    // Check if the current triplet forms a valid triangle
+    if (a < b + c) {
+      return [c, b, a]; // Return the sticks in decreasing order (longest perimeter)
+    }
+  }
+
+  return [-1]; // No valid triangle can be formed
+}
+
+
