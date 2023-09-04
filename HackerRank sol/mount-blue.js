@@ -1381,3 +1381,109 @@ function acmTeam(topic) {
 
   return [maxTopics, maxTeams];
 }
+
+
+//Sherlock and the Valid String
+
+
+function isValid(s) {
+  const charCount = {}; // To store the count of each character
+
+  // Count the occurrence of each character in the string
+  for (const char of s) {
+    charCount[char] = (charCount[char] || 0) + 1;
+  }
+
+  const charFrequency = Object.values(charCount); // Array of character frequencies
+  const frequencyCounts = {}; // To store the count of frequencies
+
+  // Count the occurrence of each frequency in the charFrequency array
+  for (const freq of charFrequency) {
+    frequencyCounts[freq] = (frequencyCounts[freq] || 0) + 1;
+  }
+
+  // If there is only one unique frequency or if there are two unique frequencies
+  // and one of them has a count of 1 and can be removed to make the others equal
+  if (
+    Object.keys(frequencyCounts).length === 1 ||
+    (Object.keys(frequencyCounts).length === 2 &&
+      (frequencyCounts[1] === 1 ||
+        (Math.abs(parseInt(Object.keys(frequencyCounts)[0]) - parseInt(Object.keys(frequencyCounts)[1])) === 1 &&
+          (frequencyCounts[Math.min(...Object.keys(frequencyCounts))] === 1 ||
+            frequencyCounts[Math.max(...Object.keys(frequencyCounts))] === 1))))
+  ) {
+    return "YES";
+  } else {
+    return "NO";
+  }
+}
+
+
+// Gaming Array
+
+
+function gamingArray(arr) {
+  let max = 0; // Initialize the maximum element
+  let player = 1; // Player 1 starts the game
+
+  for (const num of arr) {
+    if (num > max) {
+      max = num;
+      player = 1 - player; // Switch players when a new maximum is found
+    }
+  }
+
+  // The last player to make a move wins
+  return player === 0 ? "BOB" : "ANDY";
+}
+
+
+// Encryption
+
+
+function encryption(s) {
+  // Remove spaces from the input string
+  s = s.replace(/\s/g, '');
+
+  // Calculate the number of rows and columns for the rectangular grid
+  const length = s.length;
+  const sqrtLength = Math.sqrt(length);
+  let rows = Math.floor(sqrtLength);
+  let cols = Math.ceil(sqrtLength);
+
+  // Adjust the number of rows and columns if necessary
+  while (rows * cols < length) {
+    if (rows < cols) {
+      rows++;
+    } else {
+      cols++;
+    }
+  }
+
+  // Create the grid and populate it with characters
+  const grid = [];
+  for (let i = 0; i < rows; i++) {
+    const row = [];
+    for (let j = i; j < length; j += rows) {
+      row.push(s[j]);
+    }
+    grid.push(row.join(''));
+  }
+
+  // Read the characters column-wise to create the encrypted message
+  const encrypted = [];
+  for (let j = 0; j < cols; j++) {
+    const col = [];
+    for (let i = 0; i < rows; i++) {
+      if (grid[i][j]) {
+        col.push(grid[i][j]);
+      }
+    }
+    encrypted.push(col.join(''));
+  }
+
+  // Join the columns with spaces to form the final encrypted message
+  return encrypted.join(' ');
+}
+
+
