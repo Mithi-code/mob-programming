@@ -1442,48 +1442,31 @@ function gamingArray(arr) {
 
 
 function encryption(s) {
-  // Remove spaces from the input string
+  // Remove spaces and calculate the string length
   s = s.replace(/\s/g, '');
-
-  // Calculate the number of rows and columns for the rectangular grid
   const length = s.length;
-  const sqrtLength = Math.sqrt(length);
-  let rows = Math.floor(sqrtLength);
-  let cols = Math.ceil(sqrtLength);
 
-  // Adjust the number of rows and columns if necessary
-  while (rows * cols < length) {
-    if (rows < cols) {
+  // Calculate the number of rows and columns
+  let rows = Math.floor(Math.sqrt(length));
+  let columns = Math.ceil(Math.sqrt(length));
+
+  // Adjust rows and columns if necessary
+  while (rows * columns < length) {
+    if (rows < columns) {
       rows++;
     } else {
-      cols++;
+      columns++;
     }
   }
 
-  // Create the grid and populate it with characters
-  const grid = [];
-  for (let i = 0; i < rows; i++) {
-    const row = [];
-    for (let j = i; j < length; j += rows) {
-      row.push(s[j]);
+  // Create the encrypted message by reading characters column-wise
+  let encrypted = '';
+  for (let j = 0; j < columns; j++) {
+    for (let i = j; i < length; i += columns) {
+      encrypted += s[i];
     }
-    grid.push(row.join(''));
+    encrypted += ' '; // Add a space to separate columns
   }
 
-  // Read the characters column-wise to create the encrypted message
-  const encrypted = [];
-  for (let j = 0; j < cols; j++) {
-    const col = [];
-    for (let i = 0; i < rows; i++) {
-      if (grid[i][j]) {
-        col.push(grid[i][j]);
-      }
-    }
-    encrypted.push(col.join(''));
-  }
-
-  // Join the columns with spaces to form the final encrypted message
-  return encrypted.join(' ');
+  return encrypted.trim(); // Remove trailing space and return the encrypted message
 }
-
-
