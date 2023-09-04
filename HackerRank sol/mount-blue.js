@@ -1052,3 +1052,332 @@ function utopianTree(n) {
 
   return height;
 }
+
+
+// Beautiful Triplets
+
+function beautifulTriplets(d, arr) {
+  let count = 0;
+
+  for (let i = 0; i < arr.length - 2; i++) {
+    for (let j = i + 1; j < arr.length - 1; j++) {
+      if (arr[j] - arr[i] === d) {
+        for (let k = j + 1; k < arr.length; k++) {
+          if (arr[k] - arr[j] === d) {
+            count++;
+          }
+        }
+      }
+    }
+  }
+
+  return count;
+}
+
+
+// Picking Numbers
+
+
+function pickingNumbers(a) {
+  const frequency = new Array(101).fill(0);
+
+  for (const num of a) {
+    frequency[num]++;
+  }
+
+  let maxSubarrayLength = 0;
+
+  for (let i = 0; i <= 100; i++) {
+    const subarrayLength = frequency[i] + frequency[i + 1];
+    if (subarrayLength > maxSubarrayLength) {
+      maxSubarrayLength = subarrayLength;
+    }
+  }
+
+  return maxSubarrayLength;
+}
+
+
+// HackerRank in a String!
+
+
+function hackerrankInString(s) {
+  const targetWord = "hackerrank";
+  let currentIndex = 0; // Index to track the current character to match
+
+  // Iterate through the characters of the input string
+  for (const char of s) {
+    // If the current character matches the character in the target word, move to the next character in the target word
+    if (char === targetWord[currentIndex]) {
+      currentIndex++;
+    }
+
+    // If we have matched all characters in the target word, return "YES"
+    if (currentIndex === targetWord.length) {
+      return "YES";
+    }
+  }
+
+  // If we didn't match all characters in the target word, return "NO"
+  return "NO";
+}
+
+
+//Designer PDF Viewer 
+
+
+function designerPdfViewer(h, word) {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  const heights = {};
+
+  // Create a map of letter heights
+  for (let i = 0; i < alphabet.length; i++) {
+    heights[alphabet[i]] = h[i];
+  }
+
+  // Find the maximum height of letters in the word
+  let maxHeight = 0;
+  for (const letter of word) {
+    const height = heights[letter];
+    if (height > maxHeight) {
+      maxHeight = height;
+    }
+  }
+
+  // Calculate the area of the rectangle
+  const wordLength = word.length;
+  const area = wordLength * maxHeight;
+
+  return area;
+}
+
+
+// Service lane -- Note add width in function params and in result in main func
+
+
+function serviceLane(n, cases, width) {
+    // Write your code here
+     const minWidths = [];
+
+    for (const testCase of cases) {
+        const [entry, exit] = testCase;
+
+        if (entry >= 0 && entry <= exit && exit < n) {
+            const segment = width.slice(entry, exit + 1); 
+            const minWidth = Math.min(...segment);
+            minWidths.push(minWidth);
+        } else {
+            // Handle invalid case
+            minWidths.push(0);
+        }
+    }
+
+    return minWidths;
+}
+
+
+// Luck Balance
+
+
+function luckBalance(k, contests) {
+  let totalLuck = 0;
+  const importantContests = [];
+
+  for (const [luck, importance] of contests) {
+    totalLuck += luck;
+
+    if (importance === 1) {
+      importantContests.push(luck);
+    }
+  }
+
+  // Sort important contests in descending order
+  importantContests.sort((a, b) => b - a);
+
+  // Calculate the number of important contests to lose
+  const numToLose = Math.max(0, importantContests.length - k);
+
+  // Deduct luck from the important contests that will be lost
+  for (let i = 0; i < numToLose; i++) {
+    totalLuck -= 2 * importantContests[i];
+  }
+
+  return totalLuck;
+}
+
+
+// Luck Balance
+
+function luckBalance(k, contests) {
+    const importantContests = [];
+    let totalLuck = 0;
+
+    for (const contest of contests) {
+        const [luck, importance] = contest;
+        totalLuck += luck;
+
+        if (importance === 1) {
+            importantContests.push(luck);
+        }
+    }
+
+    importantContests.sort((a, b) => a - b);
+
+    let totalImportantContests = importantContests.length;
+    let importantContestsToWin = Math.max(0, totalImportantContests - k);
+
+    for (let i = 0; i < importantContestsToWin; i++) {
+        totalLuck -= 2 * importantContests[i];
+    }
+
+    return totalLuck;
+}
+
+
+//Append and Delete
+
+
+function appendAndDelete(s, t, k) {
+  let commonLength = 0; // Length of the common prefix between s and t
+
+  // Find the length of the common prefix
+  while (commonLength < s.length && commonLength < t.length && s[commonLength] === t[commonLength]) {
+    commonLength++;
+  }
+
+  // Calculate the total operations required to delete the remaining characters in s
+  const deleteOperations = s.length - commonLength;
+
+  // Calculate the total operations required to append the remaining characters in t
+  const appendOperations = t.length - commonLength;
+
+  // Calculate the total operations needed to make s equal to t
+  const totalOperations = deleteOperations + appendOperations;
+
+  // Check if k is greater than or equal to the total operations and whether k is even or odd
+  if (k >= totalOperations && (k - totalOperations) % 2 === 0 || k >= s.length + t.length) {
+    return "Yes";
+  } else if (k >= s.length + t.length) {
+    // Special case where we can remove all characters and add them back, which takes an even number of operations
+    return "Yes";
+  } else {
+    return "No";
+  }
+}
+
+
+// Misère Nim
+
+function misereNim(s) {
+        // Write your code here
+        let xor = s[0], totalStones = s[0];
+        for(let i = 1; i < s.length; i++) {
+            totalStones += s[i];
+            xor = xor ^ s[i];
+        }
+        
+        if (totalStones == s.length) {
+            return totalStones % 2 == 0 ? 'First' : 'Second';
+        }
+        
+        return xor ? 'First' : 'Second';
+} 
+
+// Gemstones
+
+
+function gemstones(arr) {
+  const mineralCount = {}; // To store the count of each mineral
+
+  // Initialize the mineralCount with zeros for each possible mineral (a-z)
+  for (let i = 97; i <= 122; i++) {
+    mineralCount[String.fromCharCode(i)] = 0;
+  }
+
+  // Iterate through each rock and count the occurrence of each mineral
+  for (const rock of arr) {
+    const uniqueMinerals = new Set(rock); // Use a Set to store unique minerals in each rock
+
+    // Increment the count for each mineral found in the current rock
+    for (const mineral of uniqueMinerals) {
+      mineralCount[mineral]++;
+    }
+  }
+
+  // Count the number of minerals that occur in all rocks (have a count equal to the number of rocks)
+  let gemstoneCount = 0;
+  for (const mineral in mineralCount) {
+    if (mineralCount[mineral] === arr.length) {
+      gemstoneCount++;
+    }
+  }
+
+  return gemstoneCount;
+}
+
+
+// Two strings
+
+function twoStrings(s1, s2) {
+    // Write your code here
+  const charSet = new Set();
+    for (const char of s1) {
+    charSet.add(char);
+  }
+      for (const char of s2) {
+    if (charSet.has(char)) {
+      return "YES"; 
+    }
+  }
+return "NO"
+}
+
+// Chocolate feast
+
+function chocolateFeast(n, c, m) {
+  let chocolatesBought = Math.floor(n / c); // Initial chocolates bought with money
+  let wrappers = chocolatesBought; // Initial wrappers collected
+
+  while (wrappers >= m) {
+    const freeChocolates = Math.floor(wrappers / m); // Chocolates obtained from wrappers
+    chocolatesBought += freeChocolates;
+    wrappers = freeChocolates + (wrappers % m); // Remaining wrappers after exchange
+  }
+
+  return chocolatesBought;
+}
+
+
+// ACM ICPC Team
+
+
+function acmTeam(topic) {
+  let maxTopics = 0; // Maximum number of topics known by a team
+  let maxTeams = 0; // Number of teams with maximum topics
+
+  const numAttendees = topic.length;
+
+  // Iterate through all pairs of attendees
+  for (let i = 0; i < numAttendees - 1; i++) {
+    for (let j = i + 1; j < numAttendees; j++) {
+      let teamTopics = 0;
+
+      // Count the number of topics known by the team
+      for (let k = 0; k < topic[i].length; k++) {
+        if (topic[i][k] === '1' || topic[j][k] === '1') {
+          teamTopics++;
+        }
+      }
+
+      // Check if the current team knows more topics than the previous maximum
+      if (teamTopics > maxTopics) {
+        maxTopics = teamTopics;
+        maxTeams = 1; // Reset maxTeams to 1
+      } else if (teamTopics === maxTopics) {
+        maxTeams++; // Increment maxTeams if equal topics
+      }
+    }
+  }
+
+  return [maxTopics, maxTeams];
+}
