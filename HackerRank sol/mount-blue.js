@@ -920,7 +920,27 @@ function equalizeArray(arr) {
 
 // Separate the Numbers
 
+function separateNumbers(s) {
+    // Write your code here
+    for (let i = 1; i <= Math.floor(s.length / 2); i++) {
+        const firstNumStr = s.substring(0, i);
+        let currentNumStr = firstNumStr;
+        let nextNum = BigInt(firstNumStr) + 1n; // Convert to BigInt
 
+        while (currentNumStr.length < s.length) {
+            currentNumStr += nextNum.toString();
+            nextNum++;
+        }
+
+        if (currentNumStr === s) {
+            console.log(`YES ${firstNumStr}`);
+            return;
+        }
+    }
+
+    
+    console.log("NO");
+}
        
 //Minimum Distances
 
@@ -966,3 +986,69 @@ function maximumPerimeterTriangle(sticks) {
 }
 
 
+
+// Pangrams
+
+
+function isPangram(s) {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
+  // Convert the input string to lowercase to handle case-insensitivity
+  s = s.toLowerCase();
+
+  // Create a Set to keep track of unique letters in the input string
+  const letterSet = new Set();
+
+  // Iterate through each character in the string
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+
+    // If the character is a letter of the alphabet, add it to the Set
+    if (alphabet.includes(char)) {
+      letterSet.add(char);
+    }
+  }
+
+  // If the Set contains all 26 letters, it's a pangram; otherwise, it's not
+  return letterSet.size === 26 ? "pangram" : "not pangram";
+}
+
+
+// Beautiful Binary String
+
+
+function beautifulBinaryString(b) {
+  const targetSubstring = "010";
+  let changesNeeded = 0;
+
+  for (let i = 0; i < b.length - 2; i++) {
+    const substring = b.substring(i, i + 3);
+
+    if (substring === targetSubstring) {
+      changesNeeded++;
+      i += 2; // Skip the next two characters
+    }
+  }
+
+  return changesNeeded;
+}
+
+
+// Utopian Tree
+
+
+function utopianTree(n) {
+  let height = 1;
+
+  for (let i = 1; i <= n; i++) {
+    if (i % 2 === 1) {
+      // Spring (odd-numbered cycle): Double the height
+      height *= 2;
+    } else {
+      // Summer (even-numbered cycle): Increase the height by 1
+      height += 1;
+    }
+  }
+
+  return height;
+}
