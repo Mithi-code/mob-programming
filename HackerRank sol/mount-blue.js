@@ -1470,3 +1470,963 @@ function encryption(s) {
 
   return encrypted.trim(); // Remove trailing space and return the encrypted message
 }
+
+
+// The Time in Words
+
+
+function timeInWords(h, m) {
+  const words = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "quarter",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
+    "twenty",
+    "twenty one",
+    "twenty two",
+    "twenty three",
+    "twenty four",
+    "twenty five",
+    "twenty six",
+    "twenty seven",
+    "twenty eight",
+    "twenty nine",
+  ];
+
+  if (m === 0) {
+    return `${words[h]} o' clock`;
+  } else if (m === 1) {
+    return `${words[m]} minute past ${words[h]}`;
+  } else if (m === 15) {
+    return `${words[m]} past ${words[h]}`;
+  } else if (m === 30) {
+    return `half past ${words[h]}`;
+  } else if (m === 45) {
+    return `${words[60 - m]} to ${words[h + 1]}`;
+  } else if (m === 59) {
+    return `${words[60 - m]} minute to ${words[h + 1]}`;
+  } else if (m <= 30) {
+    return `${words[m]} minutes past ${words[h]}`;
+  } else {
+    return `${words[60 - m]} minutes to ${words[h + 1]}`;
+  }
+}
+
+
+// Organizing Containers of Balls
+
+
+function organizingContainers(container) {
+  const containerSum = [];
+  const ballCount = [];
+
+  // Calculate the sum of each container and the count of each ball type
+  for (let i = 0; i < container.length; i++) {
+    let sum = 0;
+    let count = 0;
+    for (let j = 0; j < container.length; j++) {
+      sum += container[i][j];
+      count += container[j][i];
+    }
+    containerSum.push(sum);
+    ballCount.push(count);
+  }
+
+  // Sort the sums and counts arrays
+  containerSum.sort((a, b) => a - b);
+  ballCount.sort((a, b) => a - b);
+
+  // If the sorted arrays are equal, it's possible to rearrange the containers
+  return JSON.stringify(containerSum) === JSON.stringify(ballCount) ? "Possible" : "Impossible";
+}
+
+
+// Sansa and XOR
+
+
+function sansaXor(arr) {
+  const n = arr.length;
+  let result = 0;
+
+  // Calculate the XOR of each element that occurs even number of times
+  // The elements that occur even times will cancel each other in XOR
+  // So, we only need to XOR the elements that occur odd number of times
+  if (n % 2 === 0) {
+    return 0;
+  } else {
+    for (let i = 0; i < n; i += 2) {
+      result ^= arr[i];
+    }
+    return result;
+  }
+}
+
+
+
+//  The Grid Search
+
+
+function gridSearch(G, P) {
+  const GRows = G.length;
+  const GColumns = G[0].length;
+  const PRows = P.length;
+  const PColumns = P[0].length;
+
+  for (let i = 0; i <= GRows - PRows; i++) {
+    for (let j = 0; j <= GColumns - PColumns; j++) {
+      let found = true;
+
+      for (let k = 0; k < PRows; k++) {
+        for (let l = 0; l < PColumns; l++) {
+          if (G[i + k][j + l] !== P[k][l]) {
+            found = false;
+            break;
+          }
+        }
+
+        if (!found) {
+          break;
+        }
+      }
+
+      if (found) {
+        return "YES";
+      }
+    }
+  }
+
+  return "NO";
+}
+
+
+
+// Flipping the Matrix
+
+
+
+function flippingMatrix(matrix) {
+  const n = matrix.length / 2;
+  let maxSum = 0;
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      // Select the four elements forming a square submatrix
+      const topLeft = matrix[i][j];
+      const topRight = matrix[i][2 * n - j - 1];
+      const bottomLeft = matrix[2 * n - i - 1][j];
+      const bottomRight = matrix[2 * n - i - 1][2 * n - j - 1];
+
+      // Find the maximum of the four elements and add it to the sum
+      maxSum += Math.max(topLeft, topRight, bottomLeft, bottomRight);
+    }
+  }
+
+  return maxSum;
+}
+
+
+
+// Counter game
+
+function counterGame(n) {
+    let move = 0;
+    while(n > 1) {
+        let power = parseInt(Math.log2(n));
+        let max = 2**power;
+        if(n === max) {
+            n  = parseInt(n/2);
+        } else {
+            n = n - max;
+        }
+        move++;
+    }
+    if(move %2 === 0) {
+        return 'Richard';
+    } else {
+        return 'Louise';
+    }
+}
+
+
+// Greedy Florist 
+
+function getMinimumCost(k, c) {
+  // Sort the flower prices in decreasing order
+  c.sort((a, b) => b - a);
+
+  let totalCost = 0;
+  let purchaseCount = 0;
+  let multiplier = 0;
+
+  for (let i = 0; i < c.length; i++) {
+    totalCost += (multiplier + 1) * c[i];
+    purchaseCount++;
+
+    if (purchaseCount === k) {
+      purchaseCount = 0;
+      multiplier++;
+    }
+  }
+
+  return totalCost;
+}
+
+
+// Mark and Toys
+
+
+function maximumToys(prices, k) {
+  // Sort the toy prices in ascending order
+  prices.sort((a, b) => a - b);
+
+  let toysBought = 0;
+  let totalCost = 0;
+
+  for (let i = 0; i < prices.length; i++) {
+    if (totalCost + prices[i] <= k) {
+      totalCost += prices[i];
+      toysBought++;
+    } else {
+      break; // Stop buying toys if the budget is exceeded
+    }
+  }
+
+  return toysBought;
+}
+
+
+
+// Closest Numbers
+
+function closestNumbers(arr) {
+  // Sort the array in ascending order
+  arr.sort((a, b) => a - b);
+
+  let minDiff = Infinity;
+  let pairs = [];
+
+  // Calculate the minimum absolute difference
+  for (let i = 1; i < arr.length; i++) {
+    const diff = arr[i] - arr[i - 1];
+
+    if (diff < minDiff) {
+      minDiff = diff;
+      pairs = [arr[i - 1], arr[i]];
+    } else if (diff === minDiff) {
+      pairs.push(arr[i - 1], arr[i]);
+    }
+  }
+
+  return pairs;
+}
+
+
+// function balancedSums(arr) {
+  const n = arr.length;
+  
+  // Calculate the total sum of the array
+  let totalSum = 0;
+  for (let i = 0; i < n; i++) {
+    totalSum += arr[i];
+  }
+  
+  let leftSum = 0;
+
+  for (let i = 0; i < n; i++) {
+    // Calculate the right sum by subtracting the left sum and the current element from the total sum
+    const rightSum = totalSum - leftSum - arr[i];
+    
+    // Check if the left and right sums are equal
+    if (leftSum === rightSum) {
+      return "YES";
+    }
+    
+    leftSum += arr[i];
+  }
+  
+  // If no such element is found, return "NO"
+  return "NO";
+}
+
+
+//Flipping bits 
+
+
+function flippingBits(n) {
+  // Use the XOR operator (^) with a bitmask to flip the bits
+  const flippedNum = n ^ 0xFFFFFFFF;
+  return flippedNum >>> 0; // Ensure it's a 32-bit unsigned integer
+}
+
+
+// Jim and the Orders
+
+
+function jimOrders(orders) {
+  // Create an array to store the order numbers and their corresponding serving times
+  const customerOrderTimes = [];
+
+  // Populate the customerOrderTimes array
+  for (let i = 0; i < orders.length; i++) {
+    const orderNumber = i + 1; // Order numbers start from 1
+    const orderTime = orders[i][0] + orders[i][1]; // Sum of order preparation time and serving time
+    customerOrderTimes.push([orderNumber, orderTime]);
+  }
+
+  // Sort the array based on the calculated order times
+  customerOrderTimes.sort((a, b) => a[1] - b[1]);
+
+  // Create an array to store the final order in which Jim should serve customers
+  const servingOrder = customerOrderTimes.map((order) => order[0]);
+
+  return servingOrder;
+}
+
+
+
+// Permuting Two Arrays
+
+
+function twoArrays(k, A, B) {
+  // Sort array A in ascending order and array B in descending order
+  A.sort((a, b) => a - b);
+  B.sort((a, b) => b - a);
+
+  const n = A.length;
+
+  for (let i = 0; i < n; i++) {
+    // Check if the sum of elements at the same index in A and B is less than k
+    if (A[i] + B[i] < k) {
+      return "NO"; // A permutation doesn't exist
+    }
+  }
+
+  return "YES"; // A permutation exists
+}
+
+
+// Missing Numbers
+
+function missingNumbers(arr, brr) {
+  // Create objects to count the occurrences of elements in both arrays
+  const countArr = {};
+  const countBrr = {};
+
+  // Count the occurrences of elements in arr
+  for (const num of arr) {
+    if (countArr[num]) {
+      countArr[num]++;
+    } else {
+      countArr[num] = 1;
+    }
+  }
+
+  // Count the occurrences of elements in brr
+  for (const num of brr) {
+    if (countBrr[num]) {
+      countBrr[num]++;
+    } else {
+      countBrr[num] = 1;
+    }
+  }
+
+  // Find and store missing elements in a result array
+  const result = [];
+  for (const num of Object.keys(countBrr)) {
+    if (!countArr[num] || countBrr[num] !== countArr[num]) {
+      result.push(Number(num));
+    }
+  }
+
+  // Sort the result array in ascending order
+  result.sort((a, b) => a - b);
+
+  return result;
+}
+
+
+// Forming a Magic Square
+
+
+function formingMagicSquare(s) {
+  // All possible magic squares
+  const magicSquares = [
+    [[8, 1, 6], [3, 5, 7], [4, 9, 2]],
+    [[6, 1, 8], [7, 5, 3], [2, 9, 4]],
+    [[4, 9, 2], [3, 5, 7], [8, 1, 6]],
+    [[2, 9, 4], [7, 5, 3], [6, 1, 8]],
+    [[8, 3, 4], [1, 5, 9], [6, 7, 2]],
+    [[4, 3, 8], [9, 5, 1], [2, 7, 6]],
+    [[6, 7, 2], [1, 5, 9], [8, 3, 4]],
+    [[2, 7, 6], [9, 5, 1], [4, 3, 8]],
+  ];
+
+  let minCost = Infinity;
+
+  for (const magicSquare of magicSquares) {
+    let cost = 0;
+
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        cost += Math.abs(s[i][j] - magicSquare[i][j]);
+      }
+    }
+
+    minCost = Math.min(minCost, cost);
+  }
+
+  return minCost;
+}
+
+
+
+// Climbing the Leaderboard
+
+
+function climbingLeaderboard(ranked, player) {
+    // Write your code here
+  const uniqueScores = Array.from(new Set(ranked)); // Remove duplicate scores
+  const ranks = [];
+
+  let rank = uniqueScores.length + 1; // Initialize the rank to be the worst possible rank
+  let i = uniqueScores.length - 1; // Index to traverse uniqueScores
+
+  for (const playerScore of player) {
+    while (i >= 0 && playerScore >= uniqueScores[i]) {
+      // Decrement the rank if Alice's score is greater than or equal to the current unique score
+      rank--;
+      i--;
+    }
+    ranks.push(rank); // Push Alice's current rank after the game
+  }
+
+  return ranks;
+}
+
+
+// Strange Counter 
+
+
+function strangeCounter(t) {
+  let cycle = 1;
+  let initialValue = 3;
+
+  while (t > initialValue) {
+    t -= initialValue;
+    initialValue *= 2;
+    cycle++;
+  }
+
+  return initialValue - t + 1;
+}
+
+
+
+// Insertion Sort - Part 1
+
+
+function insertionSortPart1(n, arr) {
+  const key = arr[n - 1]; // The element to be inserted
+  let i = n - 2; // Index of the last element in the sorted part of the array
+
+  // Shift elements to the right until the correct position for key is found
+  while (i >= 0 && arr[i] > key) {
+    arr[i + 1] = arr[i]; // Move the larger element to the right
+    console.log(arr.join(' ')); // Print the array after each shift
+    i--;
+  }
+
+  arr[i + 1] = key; // Insert key at the correct position
+  console.log(arr.join(' ')); // Print the array after insertion
+}
+
+
+
+// Correctness and the Loop Invariant
+
+
+
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let j = i - 1;
+    const key = arr[i];
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = key;
+  }
+  return arr;
+}
+
+// Read input from standard input (HackerRank)
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let inputLines = [];
+let currentLine = 0;
+
+rl.on('line', function (line) {
+  inputLines.push(line);
+});
+
+rl.on('close', function () {
+  // Process the input data
+  const m = parseInt(inputLines[0]);
+  const ar = inputLines[1].split(' ').map(Number);
+
+  // Sort the array using insertionSort
+  const sortedArray = insertionSort(ar);
+
+  // Output: Print the sorted array
+  console.log(sortedArray.join(' '));
+});
+
+
+
+// Running Time of Algorithms 
+
+
+function runningTime(arr) {
+    let shifts = 0; // Initialize the shift count
+
+    for (let i = 1; i < arr.length; i++) {
+        const key = arr[i];
+        let j = i - 1;
+
+        // Move elements of arr[0..i-1] that are greater than key one position ahead of their current position
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+            shifts++; // Increment the shift count
+        }
+        arr[j + 1] = key;
+    }
+
+    return shifts; // Return the total number of shifts
+}
+
+
+// insertion sort2
+
+function insertionSort2(n, arr) {
+  for (let i = 1; i < n; i++) {
+    const key = arr[i];
+    let j = i - 1;
+
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = key;
+
+    // Print the current state of the array
+    console.log(arr.join(' '));
+  }
+}
+
+
+// Counting Sort 2 
+
+function countingSort(arr) {
+  // Find the maximum element in the array to determine the counting range
+  const max = Math.max(...arr);
+
+  // Initialize a counting array with zeros
+  const count = Array(max + 1).fill(0);
+
+  // Count the occurrences of each element in the input array
+  for (const num of arr) {
+    count[num]++;
+  }
+
+  // Reconstruct the sorted array from the counting array
+  const sortedArr = [];
+  for (let i = 0; i < count.length; i++) {
+    for (let j = 0; j < count[i]; j++) {
+      sortedArr.push(i);
+    }
+  }
+
+  return sortedArr;
+}
+
+
+// Manasa and Stones 
+
+
+function stones(n, a, b) {
+  const possibleStones = new Set();
+
+  for (let i = 0; i < n; i++) {
+    const stone = i * a + (n - 1 - i) * b;
+    possibleStones.add(stone);
+  }
+
+  return Array.from(possibleStones).sort((x, y) => x - y);
+}
+
+
+// Largest Permutation
+
+
+function largestPermutation(k, arr) {
+  const n = arr.length;
+  const indexMap = {};
+
+  // Create a map of each number's index in the array
+  for (let i = 0; i < n; i++) {
+    indexMap[arr[i]] = i;
+  }
+
+  let currentValue = n;
+  let swaps = 0;
+  let currentIndex = 0;
+
+  while (swaps < k && currentValue > 0) {
+    // Find the index of the current largest value
+    const maxIndex = indexMap[currentValue];
+
+    if (currentIndex !== maxIndex) {
+      // Swap the current value with the largest value
+      arr[maxIndex] = arr[currentIndex];
+      arr[currentIndex] = currentValue;
+
+      // Update the indexMap with the new indices
+      indexMap[currentValue] = currentIndex;
+      indexMap[arr[maxIndex]] = maxIndex;
+
+      swaps++;
+    }
+
+    currentValue--;
+    currentIndex++;
+  }
+
+  return arr;
+}
+
+
+// Anagram
+
+function getCharFrequency(str) {
+  const frequency = {};
+  for (const char of str) {
+    frequency[char] = (frequency[char] || 0) + 1;
+  }
+  return frequency;
+}
+function anagram(s) {
+  // If the length of the input string is not even, it's impossible to split it into equal substrings.
+  if (s.length % 2 !== 0) {
+    return -1;
+  }
+
+  const halfLength = s.length / 2;
+  const firstHalf = s.slice(0, halfLength);
+  const secondHalf = s.slice(halfLength);
+
+  // Count the frequency of characters in both halves
+  const frequency1 = getCharFrequency(firstHalf);
+  const frequency2 = getCharFrequency(secondHalf);
+
+  // Initialize a variable to count the number of character differences
+  let diffCount = 0;
+
+  // Compare the character frequencies of the two halves
+  for (const char in frequency1) {
+    if (!frequency2[char]) {
+      // If the character is not present in the second half, all occurrences need to be changed.
+      diffCount += frequency1[char];
+    } else if (frequency1[char] > frequency2[char]) {
+      // If there are more occurrences in the first half, subtract the second half's count.
+      diffCount += frequency1[char] - frequency2[char];
+    }
+  }
+
+  return diffCount;
+}
+
+
+// Cut the sticks 
+
+
+function cutTheSticks(arr) {
+  const results = [];
+
+  while (arr.length > 0) {
+    results.push(arr.length); // Record the number of remaining sticks
+
+    // Find the minimum length among the remaining sticks
+    const min = Math.min(...arr);
+
+    // Cut all sticks by the length of the shortest stick
+    arr = arr.map((stick) => stick - min).filter((stick) => stick > 0);
+  }
+
+  return results;
+}
+
+
+// Modified Kaprekar Numbers
+
+
+function isModifiedKaprekar(n) {
+  const squared = BigInt(n) * BigInt(n); // Use BigInt to handle large numbers
+  const squaredStr = squared.toString();
+
+  const length = squaredStr.length;
+  const mid = Math.floor(length / 2);
+
+  const leftPartStr = squaredStr.substring(0, mid) || '0';
+  const rightPartStr = squaredStr.substring(mid) || '0';
+
+  const leftPart = BigInt(leftPartStr);
+  const rightPart = BigInt(rightPartStr);
+
+  return leftPart + rightPart === BigInt(n);
+}
+
+function kaprekarNumbers(p, q) {
+  const kaprekarNumbers = [];
+
+  for (let num = p; num <= q; num++) {
+    if (isModifiedKaprekar(num)) {
+      kaprekarNumbers.push(num);
+    }
+  }
+
+  if (kaprekarNumbers.length > 0) {
+    console.log(kaprekarNumbers.join(' '));
+  } else {
+    console.log('INVALID RANGE');
+  }
+}
+
+
+// Sherlock and The Beast
+
+
+var printDecentNumber = function(arr) {
+  console.log(arr.join(''));
+}
+
+var assembleDecentNumber = function(fives, threes) {
+  var arr = [];
+  for(i = 0; i < fives; i++) {
+    arr.push(5);
+  }
+  for(i = 0; i < threes; i++) {
+    arr.push(3);
+  }
+  return arr;
+}
+
+var calcDecentNumber = function(n) {
+  var fives = n;
+  var threes = 0;
+
+  while(threes <= n) {
+    if(fives % 3 === 0 && threes % 5 === 0) {
+      return assembleDecentNumber(fives, threes);
+    }
+    threes += 5;
+    fives -= 5;
+  }
+  return [-1];
+}
+
+function main() {
+    var t = parseInt(readLine());
+    for(var a0 = 0; a0 < t; a0++){
+        var n = parseInt(readLine());
+        printDecentNumber(calcDecentNumber(n));
+    }
+
+}
+
+
+// Game of Thrones - I
+
+
+function gameOfThrones(s) {
+  const charCount = {};
+
+  // Count the frequency of each character in the string
+  for (const char of s) {
+    charCount[char] = (charCount[char] || 0) + 1;
+  }
+
+  let oddCount = 0;
+
+  // Check if the characters can be rearranged to form a palindrome
+  for (const count of Object.values(charCount)) {
+    if (count % 2 !== 0) {
+      oddCount++;
+    }
+  }
+
+  // If there is at most one character with an odd count, it's possible to form a palindrome
+  if (oddCount <= 1) {
+    return "YES";
+  } else {
+    return "NO";
+  }
+}
+
+// Maximizing XOR
+
+
+function maximizingXor(l, r) {
+  let maxXor = 0;
+  
+  // Calculate the XOR of L and R
+  let xor = l ^ r;
+  
+  // Find the leftmost set bit position in XOR
+  let bitPos = 0;
+  while (xor) {
+    xor >>= 1;
+    bitPos++;
+  }
+
+  // Calculate the maximum XOR by setting each bit from left to right
+  for (let i = 0; i < bitPos; i++) {
+    maxXor <<= 1;
+    maxXor |= 1;
+  }
+
+  return maxXor;
+}
+
+
+// Happy Ladybugs
+
+function happyLadybugs(b) {
+  // Write your code here
+  let result = {};
+  let isUnderscore = false;
+
+  for (let i = 0; i < b.length; i++) {
+    if (b[i] === '_') {
+      isUnderscore = true;
+      continue;
+    }
+
+    if (!result[b[i]]) {
+      result[b[i]] = 0;
+    }
+
+    result[b[i]]++;
+  }
+
+  if (!isUnderscore) {
+    for (let i = 1; i < b.length - 1; i++) {
+      if (b[i - 1] !== b[i] && b[i] !== b[i + 1]) {
+        return 'NO';
+      }
+    }
+  }
+
+  for (const [key, value] of Object.entries(result)) {
+    if (value === 1) return 'NO';
+  }
+
+  return 'YES';
+}
+
+
+// Counting Sort 1
+
+function countingSort(arr) {
+  let freqArr = new Array(100).fill(0);
+
+  for (let i of arr) {
+    freqArr[i] += 1;
+  }
+
+  return freqArr;
+}
+
+
+// Priyanka and Toys 
+
+
+function toys(w) {
+    // Write your code here
+  w.sort((a, b) => a - b);
+
+  let units = 0;
+  let i = 0;
+
+  while (i < w.length) {
+    const currentWeight = w[i];
+    units++; // Buy the first toy in the current group
+
+    // Find and skip all toys within 4 units of the first toy's weight
+    while (i < w.length && w[i] <= currentWeight + 4) {
+      i++;
+    }
+  }
+
+  return units;
+}
+
+// Cavity Map 
+
+function cavityMap(grid) {
+  const n = grid.length;
+  const result = [];
+
+  // Convert the grid to a two-dimensional array of integers
+  const intGrid = grid.map((row) => row.split('').map(Number));
+
+  for (let i = 0; i < n; i++) {
+    const row = [];
+    for (let j = 0; j < n; j++) {
+      if (
+        i > 0 &&
+        i < n - 1 &&
+        j > 0 &&
+        j < n - 1 &&
+        intGrid[i][j] > intGrid[i - 1][j] &&
+        intGrid[i][j] > intGrid[i + 1][j] &&
+        intGrid[i][j] > intGrid[i][j - 1] &&
+        intGrid[i][j] > intGrid[i][j + 1]
+      ) {
+        // Mark the cavity with 'X'
+        row.push('X');
+      } else {
+        row.push(intGrid[i][j].toString());
+      }
+    }
+    result.push(row.join(''));
+  }
+
+  return result;
+}
+
+
+
+
+
+
